@@ -46,7 +46,7 @@ class ProductCard extends StatelessWidget  {
                 const SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: onBuyPressed, 
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+                  style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 77, 109, 165)),
                   child: const Text('Purchase Now'))
               ],
             ),)

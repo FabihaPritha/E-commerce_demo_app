@@ -1,3 +1,4 @@
+import 'package:ecommerce_demo_app/utils/stripe_payment_service.dart';
 import 'package:flutter/material.dart';
 import '../models/product_model.dart';
 import '../utils/product_service.dart';
@@ -38,9 +39,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void _onSearchChanged() {
     final query = _searchController.text.toLowerCase();
     setState(() {
-      _filteredProducts = _allProducts.where((product) {
-        return product.title.toLowerCase().contains(query);
-      }).toList();
+      _filteredProducts =
+          _allProducts.where((product) {
+            return product.title.toLowerCase().contains(query);
+          }).toList();
     });
   }
 
@@ -77,17 +79,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   final products = _filteredProducts;
                   return GridView.builder(
                     padding: const EdgeInsets.all(12),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 0.7,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                    ),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 0.7,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                        ),
                     itemCount: products.length,
                     itemBuilder: (context, index) {
                       return ProductCard(
                         product: products[index],
                         onBuyPressed: () {
+                          StripePaymentService.makePayment(context);
                           // Stripe payment will be added here later
                         },
                       );
