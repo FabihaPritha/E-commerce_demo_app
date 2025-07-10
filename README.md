@@ -1,16 +1,38 @@
-# ecommerce_demo_app
+# 🛍️ Ecommerce Demo App
 
-A new Flutter project.
+A simple Flutter e-commerce demo app featuring a product listing UI, favorite toggle, and Stripe test payment integration.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🚀 Features
 
-A few resources to get you started if this is your first Flutter project:
+-  Display product cards from local JSON data.
+-  Load images from the assets folder.
+-  Add/remove favorites for products.
+-  Search products.
+-  Test Stripe payment integration using a dummy card.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🛠️ Tech Stack
+1. Flutter
+
+2. Stripe Payment (Test Environment)
+
+## 🔧 Getting Started
+1. Clone the repo:
+   ```bash
+    git clone https://github.com/your-username/ecommerce_demo_app.git
+    cd ecommerce_demo_app
+2. Install dependencies
+    ```bash
+    flutter pub get
+3. Run the App (Mobile Only)
+    ```bash
+    flutter run
+## 💳 Test Stripe Card Details
+
+   ```bash
+   Card Number: 4242 4242 4242 4242
+   Expiry: Any future date
+   CVC: Any 3-digit number
