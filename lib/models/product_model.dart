@@ -13,13 +13,14 @@ class Product {
     required this.rating,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return Product(
-      imageURL: json['imageURL'] ?? '',
-      title: json['title'] ?? '',
-      priceRange: json['priceRange'] ?? '',
-      moq: json['moq'] ?? '',
-      rating: json['rating'] ?? '',
-    );
-  }
+factory Product.fromJson(Map<String, dynamic> json) {
+  return Product(
+    imageURL: json['imageURL'] ?? '',
+    title: json['title'] ?? '',
+    priceRange: json['priceRange'] ?? '',
+    moq: json['moq'] ?? '',
+    rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
+  );
+}
+
 }

@@ -20,7 +20,20 @@ class ProductCard extends StatelessWidget  {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-            child: Image.asset(product.imageURL, height: 100, width: double.infinity, fit: BoxFit.cover),
+            child: Image.asset(
+              product.imageURL,
+              height: 200,
+              width: double.infinity,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => Container(
+                height: 100,
+                color: Colors.grey[300],
+                child: const Icon(Icons.broken_image, size: 40,),
+              ),
+            ),
+            // child: Image.asset(product.imageURL, height: 100, width: double.infinity, fit: BoxFit.cover),
+            // child: Image.asset('assets/iamges/mouse.jpg', height: 100, width: double.infinity, fit: BoxFit.cover),
+            // print(product.imageURL);
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),

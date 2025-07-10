@@ -1,34 +1,34 @@
 [
   {
-    "imageUrl": "assets/images/airbuds.jpg",
+    "imageURL": "assets/images/airbuds.jpg",
     "title": "Airbuds",
     "priceRange": "500 BDT",
     "moq": "MOQ: 10",
     "rating": 4.2
   },
   {
-    "imageUrl": "assets/images/mouse.jpg",
+    "imageURL": "assets/images/mouse.jpg",
     "title": "Wireless Mouse",
     "priceRange": "700 BDT",
     "moq": "MOQ: 10",
     "rating": 4.2
   },
   {
-    "imageUrl": "assets/images/table_lamp.jpg",
-    "title": "Wireless Mouse",
+    "imageURL": "assets/images/table_lamp.jpg",
+    "title": "Table Lamp",
     "priceRange": "700 BDT",
     "moq": "MOQ: 10",
     "rating": 4.2
   },
   {
-    "imageUrl": "assets/images/penholder.jpg",
-    "title": "Wireless Mouse",
+    "imageURL": "assets/images/penholder.jpg",
+    "title": "Pen Holder",
     "priceRange": "700 BDT",
     "moq": "MOQ: 10",
     "rating": 4.2
   },
   {
-    "imageUrl": "assets/images/mouse.jpg",
+    "imageURL": "assets/images/mouse.jpg",
     "title": "Wireless Mouse",
     "priceRange": "700 BDT",
     "moq": "MOQ: 10",

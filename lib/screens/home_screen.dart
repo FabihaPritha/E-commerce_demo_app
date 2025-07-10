@@ -12,11 +12,36 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late Future<List<Product>> _products;
+  final TextEditingController _searchController = TextEditingController();
+  List<Product> _allProducts = [];
+  List<Product> _filteredProducts = [];
 
   @override
   void initState() {
     super.initState();
-    _products = ProductService.loadProducts();
+    _products = ProductService.loadProducts().then((products) {
+      _allProducts = products;
+      _filteredProducts = products;
+      return products;
+    });
+
+    _searchController.addListener(_onSearchChanged);
+  }
+
+  @override
+  void dispose() {
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _onSearchChanged() {
+    final query = _searchController.text.toLowerCase();
+    setState(() {
+      _filteredProducts = _allProducts.where((product) {
+        return product.title.toLowerCase().contains(query);
+      }).toList();
+    });
   }
 
   @override
@@ -28,10 +53,13 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: const EdgeInsets.all(12),
             child: TextField(
+              controller: _searchController,
               decoration: InputDecoration(
                 hintText: "Search by keyword",
                 prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
               ),
             ),
           ),
@@ -46,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return const Center(child: Text('No products found.'));
                 } else {
-                  final products = snapshot.data!;
+                  final products = _filteredProducts;
                   return GridView.builder(
                     padding: const EdgeInsets.all(12),
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
