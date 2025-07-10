@@ -94,6 +94,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           StripePaymentService.makePayment(context);
                           // Stripe payment will be added here later
                         },
+                        onFavouriteToggle: () {
+                          setState(() {
+                            products[index].isFavourite =
+                                !products[index].isFavourite;
+                          });
+                        },
                       );
                     },
                   );
