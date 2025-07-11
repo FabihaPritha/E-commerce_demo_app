@@ -2,84 +2,84 @@
   {
     "imageURL": "assets/images/ibadah.jpg",
     "title": "Ibadah Set",
-    "priceRange": "$5-$6",
+    "priceRange": "10 $",
     "moq": "MOQ: 10",
     "rating": 4.2
   },
   {
     "imageURL": "assets/images/airbuds.jpg",
     "title": "Airbuds",
-    "priceRange": "$5-$6",
+    "priceRange": "10 $",
     "moq": "MOQ: 10",
     "rating": 4.2
   },
   {
     "imageURL": "assets/images/mouse.jpg",
     "title": "Wireless Mouse",
-    "priceRange": "700 BDT",
+    "priceRange": "10 $",
     "moq": "MOQ: 10",
     "rating": 4.2
   },
   {
     "imageURL": "assets/images/table_lamp.jpg",
     "title": "Table Lamp",
-    "priceRange": "700 BDT",
+    "priceRange": "10 $",
     "moq": "MOQ: 10",
     "rating": 4.2
   },
   {
     "imageURL": "assets/images/light.jpg",
     "title": "Decoration Light",
-    "priceRange": "700 BDT",
+    "priceRange": "10 $",
     "moq": "MOQ: 10",
     "rating": 4.2
   },
   {
     "imageURL": "assets/images/chair.jpg",
     "title": "Office Chair",
-    "priceRange": "700 BDT",
+    "priceRange": "10 $",
     "moq": "MOQ: 10",
     "rating": 4.2
   },
   {
     "imageURL": "assets/images/penholder.jpg",
     "title": "Pen Holder",
-    "priceRange": "700 BDT",
+    "priceRange": "10 $",
     "moq": "MOQ: 10",
     "rating": 4.2
   },
   {
     "imageURL": "assets/images/toys.jpg",
     "title": "Plastic Toys",
-    "priceRange": "700 BDT",
+    "priceRange": "10 $",
     "moq": "MOQ: 10",
     "rating": 4.2
   },
   {
     "imageURL": "assets/images/vase.jpg",
     "title": "Dried Flower Vase",
-    "priceRange": "700 BDT",
+    "priceRange": "10 $",
     "moq": "MOQ: 10",
     "rating": 4.2
   },
   {
     "imageURL": "assets/images/bow.jpg",
     "title": "Fancy Bow",
-    "priceRange": "700 BDT",
+    "priceRange": "10 $",
     "moq": "MOQ: 10",
     "rating": 4.2
   },
   {
     "imageURL": "assets/images/frock.jpg",
     "title": "Baby frock",
-    "priceRange": "700 BDT",
+    "priceRange": "10 $",
     "moq": "MOQ: 10",
     "rating": 4.3
   },
   {
     "imageURL": "assets/images/b_table.jpg",
     "title": "Bed Side Table",
-    "priceRange": "700 BDT",
+    "priceRange": "10 $",
     "moq": "MOQ: 10",
     "rating": 4.2
   }

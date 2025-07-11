@@ -49,7 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: Column(
         children: [
           Padding(
@@ -91,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       return ProductCard(
                         product: products[index],
                         onBuyPressed: () {
-                          StripePaymentService.makePayment(context);
+                          StripePaymentService.instance.makePayment();
                           // Stripe payment will be added here later
                         },
                         onFavouriteToggle: () {

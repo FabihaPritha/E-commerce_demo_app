@@ -1,23 +1,21 @@
 import 'package:ecommerce_demo_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:stripe_payment/stripe_payment.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
-void main() {
-  StripePayment.setOptions(
-    StripeOptions(
-      publishableKey:
-          "pk_test_51RjHH5EQKwm4VFhJrxOJtGjeZ0EXAY4S4HBtXbKU1hpMAcf1I51xGn51YstQT1xIc2RnqiolF0Rif4csbPsOmof300xOMUzF0r",
-          merchantId: "Test",
-          androidPayMode: 'test',
-    ),
-  );
+void main() async {
+  await _setup();
   runApp(const MyApp());
+}
+
+Future<void> _setup() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey =
+      'pk_test_51RjHH5EQKwm4VFhJrxOJtGjeZ0EXAY4S4HBtXbKU1hpMAcf1I51xGn51YstQT1xIc2RnqiolF0Rif4csbPsOmof300xOMUzF0r';
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
