@@ -15,6 +15,9 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isTablet = screenWidth >= 600;
+
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -27,11 +30,11 @@ class ProductCard extends StatelessWidget {
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
                 child: Image.asset(
                   product.imageURL,
-                  height: 200,
+                  height: isTablet ? 150 : 130,
                   width: double.infinity,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) => Container(
-                    height: 100,
+                    height: isTablet ? 140 : 120,
                     color: Colors.grey[300],
                     child: const Icon(Icons.broken_image, size: 40),
                   ),
@@ -50,22 +53,46 @@ class ProductCard extends StatelessWidget {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(product.title, style: const TextStyle(fontWeight: FontWeight.bold)),
-                const SizedBox(height: 4),
-                Text('${product.priceRange} . ${product.moq} . ${product.rating}⭐'),
-                const SizedBox(height: 8),
-                ElevatedButton(
-                  onPressed: onBuyPressed,
-                  style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 1, 28, 74)),
-                  child: const Text('Purchase Now',
-                  style: TextStyle(color: Colors.white),),
-                ),
-              ],
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: isTablet ? 16 : 14,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '${product.priceRange} • ${product.moq} • ${product.rating}⭐',
+                    style: TextStyle(fontSize: isTablet ? 14 : 12),
+                  ),
+                  const Spacer(),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: onBuyPressed,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 1, 28, 74),
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                      ),
+                      child: Text(
+                        'Purchase Now',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: isTablet ? 14 : 12,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

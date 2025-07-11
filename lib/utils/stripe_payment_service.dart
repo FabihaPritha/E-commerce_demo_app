@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:ecommerce_demo_app/const.dart';
+import 'package:ecommerce_demo_app/const.dart'; // contains `stripeSecretKey`
+import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
 class StripePaymentService {
@@ -7,30 +8,45 @@ class StripePaymentService {
 
   static final StripePaymentService instance = StripePaymentService._();
 
-  Future<void> makePayment() async {
+  Future<void> makePayment(BuildContext context) async {
     try {
-      String? paymentIntentClientSecret = await _createPaymentIntent(10, "usd");
-      if (paymentIntentClientSecret == null) return;
+      final clientSecret = await _createPaymentIntent(10, "usd");
+
+      if (clientSecret == null) {
+        _showDialog(context, "Error", "Failed to create payment intent.");
+        return;
+      }
+
+      // Initialize payment sheet
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
-          paymentIntentClientSecret: paymentIntentClientSecret,
+          paymentIntentClientSecret: clientSecret,
           merchantDisplayName: "Nowshin",
+          style: ThemeMode.light,
         ),
       );
-      await _processPayment();
+
+      // Present payment sheet
+      await Stripe.instance.presentPaymentSheet();
+
+      // Show success dialog
+      _showDialog(context, "Payment Successful", "Your payment was completed!");
+    } on StripeException catch (_) {
+      _showDialog(context, "Payment Cancelled", "You cancelled the payment.");
     } catch (e) {
-      print(e);
+      _showDialog(context, "Payment Failed", "An error occurred: $e");
     }
   }
 
   Future<String?> _createPaymentIntent(int amount, String currency) async {
     try {
-      final Dio dio = Dio();
-      Map<String, dynamic> data = {
+      final dio = Dio();
+      final data = {
         "amount": _calculateAmount(amount),
         "currency": currency,
       };
-      var response = await dio.post(
+
+      final response = await dio.post(
         "https://api.stripe.com/v1/payment_intents",
         data: data,
         options: Options(
@@ -41,84 +57,31 @@ class StripePaymentService {
           },
         ),
       );
-      if (response.data != null) {
-        return response.data["client_secret"];
-      }
-    } catch (e) {
-      print(e);
-    }
-    return null;
-  }
 
-  Future<void> _processPayment() async {
-    try {
-      await Stripe.instance.presentPaymentSheet();
+      return response.data["client_secret"];
     } catch (e) {
-      print(e);
+      print("PaymentIntent error: $e");
+      return null;
     }
   }
 
   String _calculateAmount(int amount) {
-    final calculateAmount = amount * 100;
-    return calculateAmount.toString();
+    return (amount * 100).toString(); // Convert to cents
+  }
+
+  void _showDialog(BuildContext context, String title, String message) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(title),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("OK"),
+          ),
+        ],
+      ),
+    );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:flutter_stripe/flutter_stripe.dart';
-
-// class StripePaymentService {
-//   static Future<void> makePayment(BuildContext context) async{
-//     try{
-//       PaymentMethod paymentMethod = await StripePayment.paymentRequestWithCardForm(
-//         CardFormPaymentRequest(),
-//       );
-      
-//       showDialog(
-//         // ignore: use_build_context_synchronously
-//         context: context, 
-//         builder: (_) => AlertDialog(
-//           title: const Text('Payment Successful'),
-//           content: Text('Payment Method: ${paymentMethod.id}'),
-//           actions: [
-//             TextButton(
-//               onPressed: () => Navigator.pop(context),
-//                child: const Text('OK'),
-//             )
-//           ],
-//         ),
-//       );
-
-//     }catch(e){
-//       showDialog(
-//         // ignore: use_build_context_synchronously
-//         context: context, 
-//         builder: (_) => AlertDialog(
-//           title: const Text('Payment Failed'),
-//           content: Text('Error : $e'),
-//           actions: [
-//             TextButton(
-//               onPressed: () => Navigator.pop(context), 
-//               child: const Text('OK'))
-//           ],
-//         ));
-//     }
-//   }
-// }

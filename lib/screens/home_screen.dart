@@ -39,16 +39,19 @@ class _HomeScreenState extends State<HomeScreen> {
   void _onSearchChanged() {
     final query = _searchController.text.toLowerCase();
     setState(() {
-      _filteredProducts =
-          _allProducts.where((product) {
-            return product.title.toLowerCase().contains(query);
-          }).toList();
+      _filteredProducts = _allProducts
+          .where((product) =>
+              product.title.toLowerCase().contains(query))
+          .toList();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 13, 43, 95),
+      ),
       body: Column(
         children: [
           Padding(
@@ -76,28 +79,40 @@ class _HomeScreenState extends State<HomeScreen> {
                   return const Center(child: Text('No products found.'));
                 } else {
                   final products = _filteredProducts;
-                  return GridView.builder(
-                    padding: const EdgeInsets.all(12),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.7,
+                  return LayoutBuilder(
+                    builder: (context, constraints) {
+                      // Responsive column count
+                      int crossAxisCount = 2;
+                      if (constraints.maxWidth >= 1200) {
+                        crossAxisCount = 5;
+                      } else if (constraints.maxWidth >= 900) {
+                        crossAxisCount = 4;
+                      } else if (constraints.maxWidth >= 600) {
+                        crossAxisCount = 3;
+                      }
+
+                      return GridView.builder(
+                        padding: const EdgeInsets.all(12),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: crossAxisCount,
+                          childAspectRatio: 0.65,
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
                         ),
-                    itemCount: products.length,
-                    itemBuilder: (context, index) {
-                      return ProductCard(
-                        product: products[index],
-                        onBuyPressed: () {
-                          StripePaymentService.instance.makePayment();
-                          // Stripe payment will be added here later
-                        },
-                        onFavouriteToggle: () {
-                          setState(() {
-                            products[index].isFavourite =
-                                !products[index].isFavourite;
-                          });
+                        itemCount: products.length,
+                        itemBuilder: (context, index) {
+                          return ProductCard(
+                            product: products[index],
+                            onBuyPressed: () {
+                              StripePaymentService.instance.makePayment(context);
+                            },
+                            onFavouriteToggle: () {
+                              setState(() {
+                                products[index].isFavourite =
+                                    !products[index].isFavourite;
+                              });
+                            },
+                          );
                         },
                       );
                     },
