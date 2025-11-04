@@ -41,10 +41,7 @@ class StripePaymentService {
   Future<String?> _createPaymentIntent(int amount, String currency) async {
     try {
       final dio = Dio();
-      final data = {
-        "amount": _calculateAmount(amount),
-        "currency": currency,
-      };
+      final data = {"amount": _calculateAmount(amount), "currency": currency};
 
       final response = await dio.post(
         "https://api.stripe.com/v1/payment_intents",
@@ -60,7 +57,7 @@ class StripePaymentService {
 
       return response.data["client_secret"];
     } catch (e) {
-      print("PaymentIntent error: $e");
+      debugPrint("PaymentIntent error: $e");
       return null;
     }
   }
@@ -72,16 +69,17 @@ class StripePaymentService {
   void _showDialog(BuildContext context, String title, String message) {
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        title: Text(title),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("OK"),
+      builder:
+          (_) => AlertDialog(
+            title: Text(title),
+            content: Text(message),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text("OK"),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 }
